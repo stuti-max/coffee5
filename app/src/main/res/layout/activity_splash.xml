@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:background="#090909"
     android:backgroundTint="#020202"
-    tools:context=".splashActivity">
+    tools:context=".activity.splashActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -52,7 +52,7 @@
         android:background="@drawable/white_bg"
         android:text="@string/get_started"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintBottom_tobottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.901"
         app:layout_constraintStart_toStartOf="parent" />

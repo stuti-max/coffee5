@@ -2,4 +2,10 @@
     <string name="app_name">coffee5</string>
     <string name="choose_your_nfavorite_coffee">choose your\nfavorite coffee</string>
     <string name="get_started">get started</string>
+    <string name="popular_coffees">popular coffees</string>
+    <string name="cart">cart</string>
+    <string name="explore">explore</string>
+    <string name="wishlist">wishlist</string>
+    <string name="my_order">my order</string>
+    <string name="title">title</string>
 </resources>
