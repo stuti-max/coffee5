@@ -7,9 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.coffee5.Adapter.CategoryAdapter
+import com.example.coffee5.Adapter.PopularAdapter
 import com.example.coffee5.R
 import com.example.coffee5.ViewModel.MainViewModel
 import com.example.coffee5.databinding.ActivityMainBinding
@@ -26,6 +28,17 @@ class MainActivity : AppCompatActivity() {
 
         initBanner()
         initCategory()
+        initPopular()
+    }
+
+    private fun initPopular() {
+        binding.progressBarpopular.visibility=View.VISIBLE
+        ViewModel.loadPopular().observeForever {
+            binding.recyclerViewpopular.layoutManager= GridLayoutManager(this,2)
+            binding.recyclerViewpopular.adapter= PopularAdapter(it)
+            binding.progressBarpopular.visibility= View.GONE
+        }
+        ViewModel.loadPopular()
     }
 
     private fun initCategory() {
@@ -40,14 +53,12 @@ class MainActivity : AppCompatActivity() {
         }
         ViewModel.loadCategory()
     }
-
-    private fun initBanner() {
-        binding.progressbarbanner.visibility = View.VISIBLE
-        ViewModel.loadBanner().observeForever {
-            Glide.with(this@MainActivity)
-                .load(it[0].url)
-                .into(binding.banner)
-            binding.progressbarbanner.visibility = View.GONE
-        }
+    private fun initBanner(){
+    binding.progressbarbanner.visibility = View.VISIBLE
+        Glide.with(this@MainActivity)
+            .load(it[0].url)
+            .into(binding.banner)
+        binding.progressbarbanner.visibility=view.GONE
     }
+    viewModel.loadBanner()
 }
