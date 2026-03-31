@@ -8,4 +8,6 @@
     <string name="wishlist">wishlist</string>
     <string name="my_order">my order</string>
     <string name="title">title</string>
+    <string name="back">Back</string>
+    <string name="add_to_cart">Add to Cart</string>
 </resources>

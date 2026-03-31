@@ -7,21 +7,19 @@
     android:layout_height="wrap_content"
     android:background="#090909"
     android:backgroundTint="#020202"
-    tools:context=".activity.splashActivity">
+    tools:context=".activity.SplashActivity">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="394dp"
-        android:layout_height="754dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="#090808"
         android:backgroundTint="#070707"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/splash_pic" />
+        app:srcCompat="@drawable/splash_pic"
+        tools:layout_editor_absoluteX="16dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView3"

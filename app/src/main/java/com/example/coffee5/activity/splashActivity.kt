@@ -6,18 +6,16 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.coffee5.databinding.ActivitySplashBinding
 
-class splashActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding= ActivitySplashBinding.inflate(layoutInflater)
+        binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         binding.startbutton.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
         }
-
     }
 }
