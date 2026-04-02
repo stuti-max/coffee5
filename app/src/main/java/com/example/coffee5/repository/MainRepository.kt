@@ -1,5 +1,6 @@
 package com.example.coffee5.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.coffee5.domain.BannerModel
@@ -14,28 +15,44 @@ class MainRepository {
     fun loadBanner(): LiveData<MutableList<BannerModel>> {
 
         val listData = MutableLiveData<MutableList<BannerModel>>()
-        val ref = firebaseDatabase.getReference("banner")
+        val ref = firebaseDatabase.reference.child("Banner")
 
         ref.addValueEventListener(object : ValueEventListener {
 
-            override fun onDataChange(p0: DataSnapshot) {
+            override fun onDataChange(snapshot: DataSnapshot) {
+
                 val list = mutableListOf<BannerModel>()
 
-                for (childSnapshot in p0.children) {
-                    val item = childSnapshot.getValue(BannerModel::class.java)
-                    item?.let { list.add(it) }
+                Log.d("BANNER_DEBUG", "Snapshot exists: ${snapshot.exists()}")
+
+                for (childSnapshot in snapshot.children) {
+
+                    // Try to read BOTH "url" and "image"
+                    val url = childSnapshot.child("url").getValue(String::class.java)
+                    val image = childSnapshot.child("image").getValue(String::class.java)
+
+                    val finalUrl = url ?: image
+
+                    Log.d("BANNER_DEBUG", "url = $url , image = $image")
+
+                    if (!finalUrl.isNullOrEmpty()) {
+                        list.add(BannerModel(finalUrl))
+                    }
                 }
+
+                Log.d("BANNER_DEBUG", "Final list size = ${list.size}")
 
                 listData.value = list
             }
 
-            override fun onCancelled(p0: DatabaseError) {
-                // removed TODO to avoid error
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("BANNER_DEBUG", "Error: ${error.message}")
             }
         })
 
         return listData
     }
+
     fun loadCategory(): LiveData<MutableList<CategoryModel>> {
 
         val listData = MutableLiveData<MutableList<CategoryModel>>()
@@ -54,14 +71,11 @@ class MainRepository {
                 listData.value = list
             }
 
-            override fun onCancelled(p0: DatabaseError) {
-                // removed TODO to avoid error
-            }
+            override fun onCancelled(p0: DatabaseError) {}
         })
 
         return listData
     }
-
 
     fun loadPopular(): LiveData<MutableList<ItemsModel>> {
 
@@ -81,9 +95,7 @@ class MainRepository {
                 listData.value = list
             }
 
-            override fun onCancelled(p0: DatabaseError) {
-                // removed TODO to avoid error
-            }
+            override fun onCancelled(p0: DatabaseError) {}
         })
 
         return listData
@@ -91,10 +103,10 @@ class MainRepository {
 
     fun loadItemCategory(categoryId: String): LiveData<MutableList<ItemsModel>> {
 
-        val itemsLiveData=MutableLiveData<MutableList<ItemsModel>>()
-        val ref=firebaseDatabase.getReference("Items")
+        val itemsLiveData = MutableLiveData<MutableList<ItemsModel>>()
+        val ref = firebaseDatabase.getReference("Items")
 
-        val query=ref.orderByChild("categoryId").equalTo(categoryId)
+        val query = ref.orderByChild("categoryId").equalTo(categoryId)
 
         query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
@@ -104,16 +116,13 @@ class MainRepository {
                     val item = childSnapshot.getValue(ItemsModel::class.java)
                     item?.let { list.add(it) }
                 }
+
                 itemsLiveData.value = list
             }
 
-            override fun onCancelled(p0: DatabaseError) {
-                //removed TODO to avoid error
-            }
+            override fun onCancelled(p0: DatabaseError) {}
         })
+
         return itemsLiveData
-        }
-
-
-
+    }
 }

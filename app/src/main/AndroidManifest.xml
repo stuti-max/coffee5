@@ -6,6 +6,7 @@
 
     <application
         android:allowBackup="true"
+        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -13,24 +14,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Coffee5">
+
+        <activity
+            android:name=".activity.CartActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.DetailActivity"
             android:exported="false" />
         <activity
             android:name=".activity.ItemsListActivity"
             android:exported="false" />
+
         <activity
             android:name=".activity.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
+
     </application>
 
-</manifest>
+    </manifest>

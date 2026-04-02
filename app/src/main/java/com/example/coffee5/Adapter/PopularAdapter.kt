@@ -1,10 +1,12 @@
 package com.example.coffee5.Adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.coffee5.activity.DetailActivity
 import com.example.coffee5.databinding.ViewholderPopularBinding
 import com.example.coffee5.domain.ItemsModel
 
@@ -37,6 +39,9 @@ class PopularAdapter(val items: MutableList<ItemsModel>) :
             .into(holder.binding.pic)
 
         holder.itemView.setOnClickListener {
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra("object", items[position])
+            context.startActivity(intent)
 
         }
     }
